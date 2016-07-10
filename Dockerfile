@@ -1,10 +1,10 @@
 # Mapnik for Docker
 
-FROM ubuntu:latest
+FROM debian:latest
 MAINTAINER Fabien Reboia<srounet@gmail.com>
 
-ENV LANG C.UTF-8
-RUN update-locale LANG=C.UTF-8
+#ENV LANG C.UTF-8
+#RUN update-locale LANG=C.UTF-8
 
 # Update and upgrade system
 RUN apt-get -qq update && apt-get -qq --yes upgrade
@@ -16,7 +16,7 @@ RUN apt-get -qq install --yes build-essential openssh-server sudo software-prope
 RUN apt-get -qq install -y libboost-dev libboost-filesystem-dev libboost-program-options-dev libboost-python-dev libboost-regex-dev libboost-system-dev libboost-thread-dev
 
 # Mapnik dependencies
-RUN apt-get -qq install --yes libicu-dev libtiff4-dev libfreetype6-dev libpng12-dev libxml2-dev libproj-dev libsqlite3-dev libgdal-dev libcairo-dev python-cairo-dev postgresql-contrib libharfbuzz-dev
+RUN apt-get -qq install --yes libicu-dev libtiff5-dev libfreetype6-dev libpng12-dev libxml2-dev libproj-dev libsqlite3-dev libgdal-dev libcairo-dev python-cairo-dev postgresql-contrib libharfbuzz-dev
 
 # Mapnik 3.0.9
 RUN curl -s https://mapnik.s3.amazonaws.com/dist/v3.0.9/mapnik-v3.0.9.tar.bz2 | tar -xj -C /tmp/ && cd /tmp/mapnik-v3.0.9 && python scons/scons.py configure JOBS=4 && make && make install JOBS=4
@@ -47,7 +47,7 @@ COPY etc/init_supervisord /etc/init.d/supervisord
 RUN chmod +x /etc/init.d/supervisord
 
 # Nginx
-RUN add-apt-repository -y ppa:nginx/stable && apt-get -qq update && apt-get -qq install -y nginx
+RUN apt-get -qq install -y nginx
 COPY etc/nginx_site.conf /etc/nginx/sites-available/site.conf
 RUN ln -s /etc/nginx/sites-available/site.conf /etc/nginx/sites-enabled/
 RUN rm /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
