@@ -24,7 +24,7 @@ Running this will build a docker image with mapnik 3.0.9 and TileStache.
 
 This image expose three ports 22 for ssh and 80 for Nginx/TileStache and 9001 for supervisord
 
-    sudo docker run -d -P -v $(readlink --canonicalize ressources):/etc/tilestache/ressources/ -v $(readlink --canonicalize ressources/tilestache.cfg):/etc/tilestache/tilestache.cfg --name mapnik mapnik
+    sudo docker run -d -P -v $(readlink --canonicalize resources):/etc/tilestache/resources/ -v $(readlink --canonicalize resources/tilestache.cfg):/etc/tilestache/tilestache.cfg --name mapnik mapnik
 
 ## Image active users
 
